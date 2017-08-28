@@ -88,4 +88,21 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <properties>
+        <browser>phantomjs</browser>
+    </properties>
+    <profiles>
+        <profile>
+            <id>firefox</id>
+            <properties>
+                <browser>firefox</browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>chrome</id>
+            <properties>
+                <browser>chrome</browser>
+            </properties>
+        </profile>
+    </profiles>
 </project>
