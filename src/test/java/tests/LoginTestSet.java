@@ -1,36 +1,52 @@
 package tests;
-
-import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.page.InitialPage;
+import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import pages.MainPage;
-import sun.tools.jar.resources.jar;
-
-import javax.inject.Inject;
-import java.io.PrintStream;
+import org.openqa.selenium.WebDriver;
+import pages.*;
 
 @RunWith(Arquillian.class)
+@RunAsClient
 public class LoginTestSet {
 
-    @Deployment
-    public static JavaArchive createDeployment(){
-        return ShrinkWrap.create(JavaArchive.class).
-                addClass(MainPage.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-    }
+    String username = "midgardel";
+    String password = "simsim29111993";
 
-    @Inject
-    private MainPage mem;
+
+    @Page
+    AccountMailPage AccountMailPage;
+
+    @Page
+    EMailBoxPage MailBoxPage;
+
+    @Page
+    SearchResultPage SearchResultPage;
+
+    @Page
+    ArgusTelecomPage ArgusPage;
 
     @Test
-    public void first_test(){
-        Assert.assertEquals("Hello, Friend!",
-                mem.createmem("Friend"));
-        mem.test1(System.out, "Friend");
+    public void EmptyFields(@InitialPage MainPage MailRuPage) throws Exception{
+        MailRuPage.openAuthorizationForm();
+        MailRuPage.clickEnter();
+    }
+
+    @Test
+    public void WrongPassword(@InitialPage MainPage MailRuPage) throws Exception{
+        MailRuPage.enterUsernameField(username);
+        MailRuPage.enterPasswordField("123");
+        MailRuPage.clickEnter();
+    }
+
+    @Test
+    public void CorrectUsernamePassword() throws Exception{
+        AccountMailPage.enterUsernameField(username);
+        AccountMailPage.enterPasswordField(password);
+        AccountMailPage.clickEnter();
+        MailBoxPage.verifyPageElements(username);
     }
 }
