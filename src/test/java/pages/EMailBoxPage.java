@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 @Location("https://e.mail.ru/")
 public class EMailBoxPage {
@@ -27,6 +30,7 @@ public class EMailBoxPage {
         logoutButton.click();
     }
     public void verifyPageElements(String username){
-        Assert.assertEquals(usernameBox.getText(), username);
+        waitGui().withTimeout(5, TimeUnit.SECONDS).until().element(userLetters).is().visible();
+        Assert.assertEquals(usernameBox.getText(), username + "@mail.ru");
     }
 }

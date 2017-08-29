@@ -7,6 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.concurrent.TimeUnit;
+
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+
 @Location("https://account.mail.ru/")
 public class AccountMailPage {
     @Drone
@@ -25,6 +29,7 @@ public class AccountMailPage {
     private WebElement errorMessage;
 
     public void enterUsernameField(String username){
+        usernameField.clear();
         usernameField.sendKeys(username);
     }
     public void enterPasswordField(String password){
@@ -35,6 +40,9 @@ public class AccountMailPage {
     }
     public void getAndCompareMistake(String mistake){
         Assert.assertEquals(errorMessage.getText(), mistake);
+    }
+    public void verifyPageElements(){
+        waitGui().withTimeout(5, TimeUnit.SECONDS).until().element(usernameField).is().visible();
     }
 
 }

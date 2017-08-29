@@ -16,7 +16,8 @@ public class LoginTestSet {
     String username = "midgardel";
     String password = "simsim29111993";
 
-
+    @Page
+    MainPage MailRuPage;
     @Page
     AccountMailPage AccountMailPage;
 
@@ -36,7 +37,7 @@ public class LoginTestSet {
     }
 
     @Test
-    public void WrongPassword(@InitialPage MainPage MailRuPage) throws Exception{
+    public void WrongPassword() throws Exception{
         MailRuPage.enterUsernameField(username);
         MailRuPage.enterPasswordField("123");
         MailRuPage.clickEnter();
@@ -44,6 +45,7 @@ public class LoginTestSet {
 
     @Test
     public void CorrectUsernamePassword() throws Exception{
+        AccountMailPage.verifyPageElements();
         AccountMailPage.enterUsernameField(username);
         AccountMailPage.enterPasswordField(password);
         AccountMailPage.clickEnter();
