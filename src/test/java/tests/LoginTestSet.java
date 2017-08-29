@@ -14,9 +14,9 @@ import pages.*;
 @RunAsClient
 public class LoginTestSet {
 
-    private String username = "midgardel";
-    private String password = "simsim29111993";
-    private String wrongUsernameOrPasswordMistake = "Неверное имя пользователя или пароль. Проверьте правильность введенных данных.";
+    private static String username = "qatestmail25";
+    private static String password = "pass123456";
+    private static String wrongUsernameOrPasswordMistake = "Неверное имя пользователя или пароль. Проверьте правильность введенных данных.";
 
     @Page
     MainPage MailRuPage;
@@ -38,15 +38,15 @@ public class LoginTestSet {
     @InSequence(2)
     public void WrongPassword() throws Exception{
         MailRuPage.enterUsernameField(username);
-        MailRuPage.enterPasswordField("123");
+        MailRuPage.enterPasswordField("1234");
         MailRuPage.clickEnter();
+        AccountMailPage.verifyPageElements();
+        AccountMailPage.getAndCompareMistake(wrongUsernameOrPasswordMistake);
     }
 
     @Test
     @InSequence(3)
     public void CorrectUsernamePassword() throws Exception{
-        AccountMailPage.verifyPageElements();
-        AccountMailPage.getAndCompareMistake(wrongUsernameOrPasswordMistake);
         AccountMailPage.enterUsernameField(username);
         AccountMailPage.enterPasswordField(password);
         AccountMailPage.clickEnter();

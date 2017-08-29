@@ -25,9 +25,7 @@ public class MainPage {
     @FindBy(id = "PH_authLink")
     private WebElement authFormButton;
 
-    @FindBy(css = "#frame > form " +
-            "> div.b-form-row.b-form-row_login.b-form-row_in-row.b-form-row_submit_btn.b-form-row_hide-message.b-form-row_.b-form-row_popup " +
-            "> div > div.b-form-field__widget > div.b-form-field__input > div > button:nth-child(1)")
+    @FindBy(css = "div.b-form-field__input > div > button:nth-child(1)")
     private WebElement enterButton; // Using css to get an element. No unique attributes.
 
     @FindBy(name = "Username")
@@ -77,6 +75,7 @@ public class MainPage {
     }
 
     public void verifyPageElements() throws Exception{
+        openBrowserInFullScreenMode();
         waitGui().withTimeout(5, TimeUnit.SECONDS).until().element(searchField).is().visible();
         Assert.assertTrue(searchButton.isDisplayed());
     }
@@ -92,5 +91,9 @@ public class MainPage {
                 Assert.assertTrue(suggestItem.getText().contains(searchText.toLowerCase()));
             }
         }
+    }
+
+    private void openBrowserInFullScreenMode(){
+        driver.manage().window().maximize();
     }
 }

@@ -15,8 +15,8 @@ import pages.SearchResultPage;
 @RunAsClient
 public class SearchModuleTestSet {
 
-    private String searchTextPart1 = "АРГУС";
-    private String searchTextPart2 = " НТЦ";
+    private static String searchTextPart1 = "АРГУС";
+    private static String searchTextPart2 = " НТЦ";
     private int resultLinkNumber = 0;
     @Page
     MainPage MailRuPage;
@@ -30,6 +30,7 @@ public class SearchModuleTestSet {
     @Test
     @InSequence(1)
     public void EmptySearchFieldTest(@InitialPage MainPage MailRuPage) throws Exception{
+        MailRuPage.verifyPageElements();
         MailRuPage.clickOnSearchButton();
         MailRuPage.searchFieldIsActive();
     }
