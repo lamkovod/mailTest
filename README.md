@@ -1,6 +1,6 @@
 mailTest
 ==============
-Arquillian + Java + Junit project example
+Arquillian + Java + JUnit + Selenium project example (Maven)
 ---------------------------------------------------------------------
 Folder Page contains page classes
 
